@@ -1,0 +1,90 @@
+#my-notifier{
+	position: fixed;
+	z-index: 100;
+	bottom: 10px;
+	left: 10px;
+	/*border: 1px solid;*/
+}
+
+.notifier *{ margin: 0; padding: 0; box-sizing: border-box;  }
+.notifier a:hover{ text-decoration: none; }
+
+.notifier{
+	background: #ececec;
+	border: 1px solid #e1e1e1;
+	border-radius: 4px;
+	box-shadow: 1px 1px 2px #999;
+	margin-bottom: 7px;
+	display: none;    /*Important for jquery SlideUp*/
+	position: relative;
+	width: 300px;
+	cursor: default;
+}
+.notifier:last-of-Type{ margin-bottom: 0; }
+
+.notifier, .notifier-fig, .notifier-body{ padding: 5px; overflow: hidden; }
+.notifier-fig, .notifier-body{ border: 1px solid transparent; border-radius: 5px; }
+
+.notifier-body{ width: 80%; text-align: justify; }
+.notifier-fig{ width: 20%; text-align: center; }
+.notifier-fig, .notifier-body{ display: inline-block; height: auto; vertical-align: middle; }
+
+.notifier-title{ font: bold normal 12px Arial; }
+.notifier-content{ font: normal 12px sans-serif,Serif,Arial; padding-top: 5px; }
+.notifier-dismiss, .notifier-link{
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	top: 5px;
+	text-align: center;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility .3s, opacity .3s linear, color .3s ease-in-out;
+	cursor: pointer;
+	color: #999;
+}
+.notifier-dismiss{ right: 5px; font: bold 16px/14px Arial; }
+.notifier-link { right: 25px; font-size: 10px; }
+.notifier-dismiss:hover{ color: rgb( 230, 100, 10 );  }
+.notifier:hover .notifier-dismiss, .notifier:hover .notifier-link{ visibility: visible; opacity: 1; }
+
+.notifier-fig figcaption{ font: bold 10px Arial; margin-top: 5px; }
+.notifier-fig img{ width: 100%; height: auto; border: 1px solid transparent; border-radius: 4px; }
+
+/*
+|-----------------------------------------------------------------------------------
+|									CSS3 Animation
+|-----------------------------------------------------------------------------------
+ */
+
+.flip-bottom {
+	-webkit-animation: flipBottom 1 1s ease-out;
+	-o-animation: flipBottom 1 1s ease-out;
+	-moz-animation: flipBottom 1 1s ease-out;
+	-ms-animation: flipBottom 1 1s ease-out;
+	animation: flipBottom 1 1s ease-out;
+	opacity: 1!important;
+}
+
+/* FLIP BOTTOM */
+@-webkit-keyframes flipBottom {
+	0%{-webkit-transform: translateY(100px);opacity: 0;}
+	70%{-webkit-transform: translateY(0);opacity: 1;}
+}
+@-moz-keyframes flipBottom {
+	0%{-moz-transform: translateY(100px);opacity: 0;}
+	70%{-moz-transform: translateY(0);opacity: 1;}
+}
+@-ms-keyframes flipBottom {
+	0%{-ms-transform: translateY(100px);opacity: 0;}
+	70%{-ms-transform: translateY(0);opacity: 1;}
+}
+@-o-keyframes flipBottom {
+	0%{-o-transform: translateY(100px);opacity: 0;}
+	70%{-o-transform: translateY(0);opacity: 1;}
+}
+@keyframes flipBottom {
+	0%{transform: translateY(100px);opacity: 0;}
+	70%{transform: translateY(0);opacity: 1;}
+}
+
