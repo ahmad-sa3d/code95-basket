@@ -77,7 +77,7 @@ class User extends Authenticatable
         if( $this->sales()->first() )
             $deletable = false;
 
-        if( $this->orders->first() )
+        if( $this->orders()->first() )
             $deletable = false;
 
         return $deletable;

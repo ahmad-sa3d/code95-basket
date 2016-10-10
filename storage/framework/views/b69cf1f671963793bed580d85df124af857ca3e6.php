@@ -13,7 +13,7 @@
 							<div class="row">
 								<div class="panel-title col-xs-5">
 									<span class="fa fa-shopping-cart lg-text"></span>
-									<span class="badge"><?php echo e($sales->count()); ?></span>
+									<span class="badge"><?php echo e($sold_pro_count = $sales->sum('quantity')); ?></span>
 								</div>
 								<div class="panel-title pull-right col-xs-7 text-right">
 									<span class="md-text">Today Sales</span>
@@ -22,7 +22,7 @@
 								
 						</div>
 						<div class="panel-body">
-							<h4 class=""><span class="valign-middle label label-danger"><?php echo e($sales->count()); ?></span> Sale Making <span class="badge badge-default"><?php echo e(number_format( $sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 )); ?> L.E.</span></h4>
+							<h4 class=""><span class="valign-middle label label-danger"><?php echo e($sold_pro_count); ?></span> Sale Making <span class="badge badge-default"><?php echo e(number_format( $sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 )); ?> L.E.</span></h4>
 						</div>
 						<?php if( $top_seller_sales ): ?>
 							<table class="table">

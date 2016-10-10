@@ -1544,7 +1544,7 @@ a.topnav-icon:hover, a.topnav-icon:focus{
 @media all and (max-width: 768px){
   .print .data-row.text-right
   {
-    text-align: left;
+    text-align: left !important;
   }
 }
 .invoice{
