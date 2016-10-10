@@ -50,7 +50,7 @@ class Order extends Model
                 $arr = [
                         'id' => $product->id,
                         'name' => $product->name,
-                        'quantity' => ( $this->data[ $product->id ] > $product->instock_quantity && $this->data[ $product->id ] ) ? $product->instock_quantity : (int) $this->data[ $product->id ],
+                        'quantity' => ( $this->data[ $product->id ] > $product->instock_quantity ) ? $product->instock_quantity : ( $this->data[ $product->id ] < 0 ? 0 : (int) $this->data[ $product->id ] ),
                         'unit_price' => $product->price,
                         'unit_discount' => $product->discount,
                         'instock_quantity' => $product->instock_quantity,

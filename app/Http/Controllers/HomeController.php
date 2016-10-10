@@ -93,7 +93,7 @@ class HomeController extends Controller
 
                 $items = array_filter( $request->input('items'), function( $quantity )
                 {
-                    return $quantity ? true : false;
+                    return $quantity > 0 ? true : false;
                 });
             }
             else
@@ -198,7 +198,7 @@ class HomeController extends Controller
                     // Make sales
                     Product::whereIn( 'id', array_keys( $data ) )->each( function( $product ) use( &$invoice, $data ){
 
-                        $quantity = ( $data[ $product->id ] > $product->instock_quantity ) ? $product->instock_quantity : $data[ $product->id ];
+                        $quantity = ( $data[ $product->id ] > $product->instock_quantity ) ? $product->instock_quantity : ( $data[ $product->id ] > 0 ? $data[ $product->id ] : 0 );
 
                         if( $product->instock_quantity > 0 )
                         {
