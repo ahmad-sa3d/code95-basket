@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
 
         if( $request->has( 'category_id' ) && $request->input( 'category_id' ) )
-            $products = Category::find( $request->input( 'category_id' ) )->products()->paginate(12);
+            $products = Category::findOrFail( $request->input( 'category_id' ) )->products()->paginate(12);
         else
             $products = Product::paginate(12);
         

@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="panel panel-primary">
-						<div class="panel-heading">
+						<div class="panel-heading no-margin">
 							<div class="row">
 								<div class="panel-title col-xs-5">
 									<span class="fa fa-shopping-cart lg-text"></span>
@@ -24,7 +24,23 @@
 								
 						</div>
 						<div class="panel-body">
-							<h4 class=""><span class="valign-middle label label-danger">{{ $sold_pro_count }}</span> Sale Making <span class="badge badge-default">{{ number_format( $sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 ) }} L.E.</span></h4>
+							<h4>
+								<span class="valign-middle label label-default">
+									# Invoices: {{ $invoices->count() }}
+								</span>
+								<i class="fa fa-arrow-right"></i>
+								<span class="valign-middle label label-success">
+									# Sales: {{ $invoices->sum() }}
+								</span>
+								<i class="fa fa-arrow-right"></i>
+								<span class="valign-middle label label-default">
+									# Quantity: {{ $sold_pro_count }}
+								</span>
+								<i class="fa fa-arrow-right"></i>
+								<span class="valign-middle label label-success">
+									{{ number_format( $sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 ) }} L.E.
+								</span>
+							</h4>
 						</div>
 						@if( $top_seller_sales )
 							<table class="table">
@@ -32,14 +48,24 @@
 									<tr>
 										<th class="text-center">Top Seller</th>
 										<th class="text-center"># Sales</th>
-										<th class="text-center">Sales Mony</th>
+										<th class="text-center">Sales Money</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td class="text-center"><a href="{{ route( 'admin.users.show', $top_seller_sales->first()->user->id ) }}" class="btn btn-xs btn-success">{{ $top_seller_sales->first()->user->username }}</a></td>
-										<td class="text-center"><span class="badge ">{{ $top_seller_sales->count() }}</span></td>
-										<td class="text-center"><span class="badge">{{ number_format( $top_seller_sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 ) }} L.E.</span></td>
+										<td class="text-center">
+											<a href="{{ route( 'admin.users.show', $top_seller_sales->first()->user->id ) }}" class="btn btn-xs btn-success">
+												{{ $top_seller_sales->first()->user->username }}
+											</a>
+										</td>
+										<td class="text-center">
+											<span class="badge ">{{ $top_seller_sales->count() }}</span>
+										</td>
+										<td class="text-center">
+											<span class="badge">
+												{{ number_format( $top_seller_sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 ) }} L.E.
+											</span>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -48,10 +74,11 @@
 				</div>
 				<div class="col-md-6">
 					<div class="panel panel-danger">
-						<div class="panel-heading">
+						<div class="panel-heading no-margin">
 							<div class="row">
 								<div class="panel-title col-xs-5">
 									<span class="fa fa-cubes lg-text"></span>
+									<span class="badge">{{ $product_sale_count = $product_sale->count() }}</span>
 								</div>
 								<div class="panel-title pull-right col-xs-7 text-right">
 									<span class="md-text">Products</span>
@@ -59,23 +86,33 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<h4 class=""><span class="valign-middle label label-warning">{{ $product_sale->count() }}</span> Diffrent Products Which Sold Tody</h4>
+							<h4 class=""><span class="valign-middle label label-warning">{{ $product_sale_count }}</span> Diffrent Products Which Sold Tody</h4>
 						</div>
 						@if( !$product_sale->isEmpty() )
 							<table class="table">
 								<thead>
 									<tr>
 										<th class="text-center">Top Product</th>
-										<th class="text-center"># Sales</th>
-										<th class="text-center">Sales Mony</th>
+										<th class="text-center">Quantity</th>
+										<th class="text-center">Sales Money</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td class="text-center"><a href="{{ route( 'admin.products.show', $product_sale->first()[0]->product->id ) }}" class="btn btn-xs btn-warning">{{ $product_sale->first()[0]->product->name }}</a></td>
-										<td class="text-center"><span class="badge ">{{ $product_sale->first()->sum('quantity') }}</span></td>
-										<td class="text-center"><span class="badge">{{ number_format( $product_sale->first()->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount ); } ), 2 ) }} L.E.</span></td>
-									</tr>
+									@foreach( $product_sale->take(5) as $product_coll )
+										<tr>
+											<td class="text-center">
+												<a href="{{ route( 'admin.products.show', $product_coll->first()->product->id ) }}" class="btn btn-xs btn-warning">
+													{{ $product_coll->first()->product->name }}
+												</a>
+											</td>
+											<td class="text-center"><span class="badge ">{{ $product_coll->sum( 'quantity' ) }}</span></td>
+											<td class="text-center">
+												<span class="badge">
+													{{ number_format( $product_coll->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount ) ; } ), 2 ) }} L.E.
+												</span>
+											</td>
+										</tr>
+									@endforeach
 								</tbody>
 							</table>
 						@endif
@@ -96,7 +133,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="panel panel-danger">
-						<div class="panel-heading">
+						<div class="panel-heading no-margin">
 							<div class="row">
 								<div class="panel-title col-xs-5">
 									<span class="fa fa-cubes lg-text"></span>
@@ -115,15 +152,7 @@
 						</div>
 							
 							@else
-
-								<h4>
-									<span class="valign-middle label label-danger">
-										{{ $outofstock_products->count() }}
-									</span>
-									Are Out Of Stock
-								</h4>
 						</div>
-
 								<table class="table">
 									<thead>
 										<tr>
@@ -151,7 +180,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="panel panel-warning">
-						<div class="panel-heading">
+						<div class="panel-heading no-margin">
 							<div class="row">
 								<div class="panel-title col-xs-5">
 									<span class="fa fa-cubes lg-text"></span>

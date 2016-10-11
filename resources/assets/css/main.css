@@ -1441,7 +1441,7 @@ a.topnav-icon:hover, a.topnav-icon:focus{
 }
 .basket-panel .selectize-control{
    min-height: 20px;
-   height: 30px;
+   height: 30px !important;
 }
 .basket ~.dropdown-menu{
   padding: 0;
@@ -1591,6 +1591,7 @@ a.topnav-icon:hover, a.topnav-icon:focus{
 }
 .panel.panel-warning > .panel-heading{
   background: #F1C40F;
+  border-color: #F1C40F;
 }
 .panel.panel-warning{
   border-color: #F1C40F;
@@ -1598,6 +1599,7 @@ a.topnav-icon:hover, a.topnav-icon:focus{
 
 .panel.panel-danger > .panel-heading{
   background: #F75C4C;
+  border-color: #F75C4C;
 }
 .panel.panel-danger{
   border-color: #F75C4C;
@@ -1605,6 +1607,7 @@ a.topnav-icon:hover, a.topnav-icon:focus{
 
 .panel.panel-info > .panel-heading{
   background: #19B5FE;
+  border-color: #19B5FE;
 }
 .panel.panel-info{
   border-color: #19B5FE;
@@ -1612,6 +1615,7 @@ a.topnav-icon:hover, a.topnav-icon:focus{
 
 .panel.panel-primary > .panel-heading{
   background: #95A5A6;
+  border-color: #95A5A6;
 }
 .panel.panel-primary{
   border-color: #95A5A6;
@@ -1619,6 +1623,7 @@ a.topnav-icon:hover, a.topnav-icon:focus{
 
 .panel.panel-success > .panel-heading{
   background: #2ECC71;
+  border-color: #2ECC71;
 }
 .panel.panel-success{
   border-color: #2ECC71;
@@ -1679,7 +1684,7 @@ h4 .label{
   background: #F1C40F;  
 }
 
-.badge, .label{ color: #FFF; letter-spacing: 1px; }
+.badge, .label{ color: #FFF; letter-spacing: 1px; margin: 4px 0px; }
 
 .danger-bg{ background: #F75C4C }
 .danger-text{ color: #F75C4C }
@@ -1706,3 +1711,4 @@ h4 .label{
 .text-white{ color: #fff; }
 a.text-white{ text-decoration: none }
 a.text-white:hover, a.text-white:focus{ color: #fff }
+.table td, .table th{ vertical-align: middle !important; }

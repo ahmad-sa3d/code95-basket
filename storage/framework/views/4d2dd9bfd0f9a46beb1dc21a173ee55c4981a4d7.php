@@ -23,29 +23,29 @@
 								<th class="text-center">#</th>
 								<th class="text-center">name</th>
 								<th class="text-center">quantity</th>
-								<th class="text-center">net price <span class="label label-info">L.E.</span></th>
+								<th class="text-center">net price</span></th>
 								<th class="text-center">remove</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php $__currentLoopData = $order->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 								<tr data-id="<?php echo e($item['id']); ?>" class="text-center">
-									<td class="iteration"><?php echo e($loop->iteration); ?></td>
-									<td class="name"><?php echo e($item['name']); ?></td>
-									<td class="quantity">
+									<td class="iteration valign-middle"><?php echo e($loop->iteration); ?></td>
+									<td class="name valign-middle"><?php echo e($item['name']); ?></td>
+									<td class="quantity valign-middle">
 										<?php echo e(Form::select( 'quantity', range(0,$item['instock_quantity'] ), $item['quantity'], ['class'=>'form-control', 'data-id'=> $item['id'] ] )); ?>
 
 									</td>
-									<td class="net-price"><?php echo e($item['net_price']); ?></td>
-									<td><a class="text-danger delete-item" href="#" data-id="<?php echo e($item['id']); ?>"><i class="glyphicon glyphicon-trash"></i></a></td>
+									<td class="net-price valign-middle"><?php echo e(number_format( $item['net_price'], 2 )); ?></td>
+									<td class="valign-middle"><a class="text-danger delete-item" href="#" data-id="<?php echo e($item['id']); ?>" data-toggle="tooltip" title="Remove Item"><i class="glyphicon glyphicon-trash"></i></a></td>
 								</tr>
 							<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 						</tbody>
 						<tfoot>
-							<tr class="active total success-bg">
+							<tr class="active total success">
 								<th class="text-center" colspan=2>Total</th>
 								<th class="text-center quantity"><?php echo e($order->items->sum('quantity')); ?></th>
-								<th class="text-center net-price"><?php echo e($order->items->sum('net_price')); ?></th>
+								<th class="text-center net-price"><?php echo e(number_format( $order->items->sum('net_price'), 2 )); ?></th>
 								<th class="text-center"></th>
 							</tr>
 						</tfoot>
