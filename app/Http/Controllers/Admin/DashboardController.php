@@ -17,18 +17,23 @@ class DashboardController extends Controller
 	{
 		$now = Carbon::now();
 
-		$sales = Sale::today()->get();
+		$sales = Sale::today()->with( 'product', 'user' )->get();
+
+		$invoices = $sales->groupBy( 'invoice_id' )->map( function( $coll ){
+						return count( $coll );
+					} );
+
+		$top_seller_sales = $sales->groupBy( 'user_id' )->max();
+
+		$product_sale = $sales->groupBy( 'product_id' )->sort(function($first, $second){ return $first->sum( 'quantity' ) < $second->sum('quantity'); });
+
 
 		$critical_products = Product::critical(5)->get();
 
 		$instock_critical_products = $critical_products->where( 'instock_quantity', '>', 0 );
 
 		$outofstock_products = $critical_products->diff( $instock_critical_products );
-
-		$top_seller_sales = $sales->groupBy( 'user_id' )->max();
-
-		$product_sale = $sales->groupBy( 'product_id' )->sort(function($first, $second){ return $first->sum( 'quantity' ) < $second->sum('quantity'); });
 		
-		return View::make( 'admin.dashboard', compact( 'now', 'sales', 'top_seller_sales', 'product_sale', 'outofstock_products', 'instock_critical_products' ) );
+		return View::make( 'admin.dashboard', compact( 'now', 'sales', 'top_seller_sales', 'product_sale', 'outofstock_products', 'instock_critical_products', 'invoices' ) );
 	}
 }

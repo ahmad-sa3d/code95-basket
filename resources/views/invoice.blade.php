@@ -33,7 +33,7 @@
         		<a href="#" data-toggle="tooltip" title="Print" class="no-underline font-size-p1 margin-r5 text-muted" onclick="printBarcode( event );">
         			<span class="glyphicon glyphicon-print"></span>
         		</a>
-        		<a href="#" data-toggle="tooltip" title="Print" class="no-underline font-size-p1 text-muted">
+        		<a href="{{ route( 'home' ) }}" data-toggle="tooltip" title="Print" class="no-underline font-size-p1 text-muted">
         			<span class="glyphicon glyphicon-home"></span>
         		</a>
         	</div>

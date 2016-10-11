@@ -23,28 +23,28 @@
 								<th class="text-center">#</th>
 								<th class="text-center">name</th>
 								<th class="text-center">quantity</th>
-								<th class="text-center">net price <span class="label label-info">L.E.</span></th>
+								<th class="text-center">net price</span></th>
 								<th class="text-center">remove</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach( $order->items as $item )
 								<tr data-id="{{ $item['id'] }}" class="text-center">
-									<td class="iteration">{{ $loop->iteration }}</td>
-									<td class="name">{{ $item['name'] }}</td>
-									<td class="quantity">
+									<td class="iteration valign-middle">{{ $loop->iteration }}</td>
+									<td class="name valign-middle">{{ $item['name'] }}</td>
+									<td class="quantity valign-middle">
 										{{ Form::select( 'quantity', range(0,$item['instock_quantity'] ), $item['quantity'], ['class'=>'form-control', 'data-id'=> $item['id'] ] ) }}
 									</td>
-									<td class="net-price">{{ $item['net_price'] }}</td>
-									<td><a class="text-danger delete-item" href="#" data-id="{{ $item['id'] }}"><i class="glyphicon glyphicon-trash"></i></a></td>
+									<td class="net-price valign-middle">{{ number_format( $item['net_price'], 2 ) }}</td>
+									<td class="valign-middle"><a class="text-danger delete-item" href="#" data-id="{{ $item['id'] }}" data-toggle="tooltip" title="Remove Item"><i class="glyphicon glyphicon-trash"></i></a></td>
 								</tr>
 							@endforeach
 						</tbody>
 						<tfoot>
-							<tr class="active total success-bg">
+							<tr class="active total success">
 								<th class="text-center" colspan=2>Total</th>
 								<th class="text-center quantity">{{ $order->items->sum('quantity') }}</th>
-								<th class="text-center net-price">{{ $order->items->sum('net_price') }}</th>
+								<th class="text-center net-price">{{ number_format( $order->items->sum('net_price'), 2 ) }}</th>
 								<th class="text-center"></th>
 							</tr>
 						</tfoot>

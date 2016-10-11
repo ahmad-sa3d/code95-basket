@@ -21,7 +21,8 @@ var $basket = $('.basket-panel'),
 	$total = $order.find( 'tr.total' ),
 	$newOrder = $basket.find('.new-order'),
 	$ajaxLoader = $basket.find( '.ajax-loader' ),
-	$add = $('.add-to-basket');
+	$add = $('.add-to-basket')
+	numberFormat = new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2  });
 
 	
 // Stop Bootstrap Dropdown Menu From Closing 
@@ -282,7 +283,7 @@ function buildOrder( order )
 								<th class="text-center">#</th>\
 								<th class="text-center">name</th>\
 								<th class="text-center">quantity</th>\
-								<th class="text-center">net price <span class="label label-info">L.E.</span></th>\
+								<th class="text-center">net price</span></th>\
 								<th class="text-center">remove</th>\
 							</tr>\
 						</thead>\
@@ -455,7 +456,8 @@ function sync( response, callback )
 		$quantitySelect[0].selectize.setValue( orderItems[ id ], true );
 
 		// Update Price
-		$row.find('.net-price').html( response.items[ id ].net_price );
+		// $row.find('.net-price').html( response.items[ id ].net_price.toFixed( 2 ) );
+		$row.find('.net-price').html( numberFormat.format( response.items[ id ].net_price ) );
 	} );
 
 	// Add New Items
@@ -481,11 +483,11 @@ function sync( response, callback )
 		var $quantityCell = $('<td>', {'class': 'quantity'}).append( $select );
 
 		var $newRow = $( '<tr>', { 'class': 'text-center', 'data-id': id } ).append(
-			'<td class="iteration">' + ($items.length+1) + '</td>',
-			'<td class="name">' + response.items[id].name + '</td>',
+			'<td class="iteration valign-middle">' + ($items.length+1) + '</td>',
+			'<td class="name valign-middle">' + response.items[id].name + '</td>',
 			$quantityCell,
-			'<td class="net-price">'+ response.items[id].net_price +'</td>',
-			'<td><a class="text-danger delete-item" href="#" data-id="'+ id +'"><i class="glyphicon glyphicon-trash"></i></a></td>'
+			'<td class="net-price valign-middle">'+ numberFormat.format( response.items[id].net_price ) +'</td>',
+			'<td class="valign-middle"><a class="text-danger delete-item" href="#" data-id="'+ id +'" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-trash"></i></a></td>'
 			);
 
 		$select.selectize();
@@ -498,7 +500,7 @@ function sync( response, callback )
 
 	// Update Totals
 	$total.find( '.quantity' ).html( response.total.quantity );
-	$total.find( '.net-price' ).html( response.total.net_price );
+	$total.find( '.net-price' ).html( numberFormat.format( response.total.net_price ) );
 
 	// Update Top Nave Count
 	if( Number.parseInt( $basketCount.text() ) != response.total.quantity )

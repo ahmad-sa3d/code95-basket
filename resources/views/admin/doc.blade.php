@@ -65,7 +65,7 @@
 				<div class="col-sm-8">
 					<h4 class="label label-primary font-size-p1">Dashboard</h4>
 					<p class="padding-l10">
-						Contains Day System Statistics <code>statistics</code>
+						Contains Day System <code>statistics</code>
 						<ul class="list-group">
 							
 							<li class="list-group-item">
@@ -73,7 +73,7 @@
 							</li>
 
 							<li class="list-group-item">
-								Top Seller User, How many And Total Mony Of sales he had done for today
+								Top Seller User, How many And Total Money Of sales he had done for today
 							</li>
 
 							<li class="list-group-item">
@@ -81,7 +81,7 @@
 							</li>
 
 							<li class="list-group-item">
-								Top Product, And how many and Total mony Of its Sales 
+								Top 5 Products, And how many and Total money Of its Sales 
 							</li>
 
 							<li class="list-group-item">

@@ -1441,7 +1441,7 @@ a.topnav-icon:hover, a.topnav-icon:focus{
 }
 .basket-panel .selectize-control{
    min-height: 20px;
-   height: 30px;
+   height: 30px !important;
 }
 .basket ~.dropdown-menu{
   padding: 0;
@@ -1679,7 +1679,7 @@ h4 .label{
   background: #F1C40F;  
 }
 
-.badge, .label{ color: #FFF; letter-spacing: 1px; }
+.badge, .label{ color: #FFF; letter-spacing: 1px; margin: 4px 0px; }
 
 .danger-bg{ background: #F75C4C }
 .danger-text{ color: #F75C4C }
@@ -1706,3 +1706,4 @@ h4 .label{
 .text-white{ color: #fff; }
 a.text-white{ text-decoration: none }
 a.text-white:hover, a.text-white:focus{ color: #fff }
+.table td, .table th{ vertical-align: middle !important; }
