@@ -44,7 +44,6 @@
 							</h4>
 						</div>
 						<?php if( $top_seller_sales ): ?>
-<<<<<<< HEAD
 							<div class="table-responsive">
 								<table class="table">
 									<thead>
@@ -74,7 +73,6 @@
 									</tbody>
 								</table>
 							</div>
-=======
 							<table class="table">
 								<thead>
 									<tr>
@@ -102,7 +100,6 @@
 									</tr>
 								</tbody>
 							</table>
->>>>>>> d0346a1f3922da222230128bd866907cd8a5cef1
 						<?php endif; ?>
 					</div>
 				</div>
@@ -120,7 +117,6 @@
 							</div>
 						</div>
 						<div class="panel-body">
-<<<<<<< HEAD
 							<h4 class=""><span class="valign-middle label label-warning"><?php echo e($product_sale_count); ?></span> Diffrent Products Which Sold Today</h4>
 						</div>
 						<?php if( !$product_sale->isEmpty() ): ?>
@@ -153,7 +149,8 @@
 									</tbody>
 								</table>
 							</div>
-=======
+						<?php endif; ?>
+
 							<h4 class=""><span class="valign-middle label label-warning"><?php echo e($product_sale_count); ?></span> Diffrent Products Which Sold Tody</h4>
 						</div>
 						<?php if( !$product_sale->isEmpty() ): ?>
@@ -184,7 +181,6 @@
 									<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 								</tbody>
 							</table>
->>>>>>> d0346a1f3922da222230128bd866907cd8a5cef1
 						<?php endif; ?>
 					</div>
 				</div>
@@ -223,10 +219,9 @@
 							
 							<?php else: ?>
 						</div>
-<<<<<<< HEAD
+
 							<div class="table-responsive">
-=======
->>>>>>> d0346a1f3922da222230128bd866907cd8a5cef1
+
 								<table class="table">
 									<thead>
 										<tr>

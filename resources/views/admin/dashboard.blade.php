@@ -145,6 +145,7 @@
 									</tbody>
 								</table>
 							</div>
+						@endif
 
 							<h4 class=""><span class="valign-middle label label-warning">{{ $product_sale_count }}</span> Diffrent Products Which Sold Tody</h4>
 						</div>
