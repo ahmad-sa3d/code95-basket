@@ -18,7 +18,54 @@
                         <!-- top-bar-right -->
                         <div class="top-bar-right">
                             
-                            
+                            <div class="notifications">
+                                <ul>
+                                    <!-- notification: general -->
+                                    <li class="notification-item general">
+                                        <div class="btn-group">
+                                            
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="fa fa-bell"></i>
+                                                <?php if( $count = count( Auth::user()->unreadNotifications ) ): ?>
+                                                    <span class="count"><?php echo e($count); ?></span>
+                                                 <?php endif; ?>
+                                                <span class="circle"></span>
+                                            </a>
+                                           
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li class="notification-header">
+                                                    <span class="">Notifications</span>
+                                                </li>
+                                                <li class="notifications-wraper">
+                                                    <ul>
+                                                        <?php if( $count ): ?>
+                                                            <?php $__currentLoopData = Auth::user()->unreadNotifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                                <?php echo $__env->make( 'admin.includes.notifications.' . snake_case( class_basename( $notification->type ) ), [ 'notification' => $notification ] , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                                                
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                                                        <?php else: ?>
+                                                            <li class="no-notifications text-center">
+                                                                <span href="#">
+                                                                    <span class="text">No New Notifications</span>
+                                                                </span>
+                                                            </li>
+                                                        <?php endif; ?>
+
+                                                    </ul>
+
+                                                    <div class="ajax-loader"></div>
+                                                </li>
+                                                <?php if( $count ): ?>
+                                                    <li class="notification-footer">
+                                                        <a href="#" id="clear-notifications">Mark As Read</a>
+                                                    </li>
+                                                <?php endif; ?>   
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <!-- end notification: general -->
+                                </ul>
+                            </div>
 
                             <!-- logged user and the menu -->
                             <div class="logged-user">

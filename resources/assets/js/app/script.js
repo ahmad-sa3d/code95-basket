@@ -133,3 +133,40 @@ $('img').on( 'error', function(){
 	this.src = src;
 	$(this).off( 'error' );
 } );
+
+// Clear Notifications
+$clear = $( '#clear-notifications' ),
+$notificationsWraper = $( '.notifications-wraper' ),
+$notificationsAjaxLoader = $notificationsWraper.find('.ajax-loader');
+$notificationsCount = $('.notifications .count');
+
+$noNewNotifications = $('<li>', {'class': 'no-notifications'})
+					.append( '<span>\
+                        <span class="text">No New Notifications</span>\
+                    </span>' );
+
+$clear.click( function(e){
+	e.stopPropagation();
+	e.preventDefault();
+	$.ajax( {
+		type: 'POST',
+		url: urlToRoute( 'admin.dashboard.clear-notifications' ),
+		data: { _token: csrfToken },
+		dataType: 'JSON',
+		beforeSend: function(){
+			$notificationsAjaxLoader.fadeIn();
+		}
+	} ).done(function(result){
+		
+		$('.notifications .notification-footer').slideUp();
+		$notificationsWraper.find( 'li' ).slideUp( function(){
+			$notificationsWraper.append( $noNewNotifications );
+		} );
+
+		$notificationsCount.html('').fadeOut();
+		
+	}).always( function(){
+		$notificationsAjaxLoader.fadeOut();
+	} );
+
+} );

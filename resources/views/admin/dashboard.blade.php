@@ -43,32 +43,34 @@
 							</h4>
 						</div>
 						@if( $top_seller_sales )
-							<table class="table">
-								<thead>
-									<tr>
-										<th class="text-center">Top Seller</th>
-										<th class="text-center"># Sales</th>
-										<th class="text-center">Sales Money</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="text-center">
-											<a href="{{ route( 'admin.users.show', $top_seller_sales->first()->user->id ) }}" class="btn btn-xs btn-success">
-												{{ $top_seller_sales->first()->user->username }}
-											</a>
-										</td>
-										<td class="text-center">
-											<span class="badge ">{{ $top_seller_sales->count() }}</span>
-										</td>
-										<td class="text-center">
-											<span class="badge">
-												{{ number_format( $top_seller_sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 ) }} L.E.
-											</span>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th class="text-center">Top Seller</th>
+											<th class="text-center"># Sales</th>
+											<th class="text-center">Sales Money</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center">
+												<a href="{{ route( 'admin.users.show', $top_seller_sales->first()->user->id ) }}" class="btn btn-xs btn-success">
+													{{ $top_seller_sales->first()->user->username }}
+												</a>
+											</td>
+											<td class="text-center">
+												<span class="badge ">{{ $top_seller_sales->count() }}</span>
+											</td>
+											<td class="text-center">
+												<span class="badge">
+													{{ number_format( $top_seller_sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 ) }} L.E.
+												</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						@endif
 					</div>
 				</div>
@@ -86,35 +88,37 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<h4 class=""><span class="valign-middle label label-warning">{{ $product_sale_count }}</span> Diffrent Products Which Sold Tody</h4>
+							<h4 class=""><span class="valign-middle label label-warning">{{ $product_sale_count }}</span> Diffrent Products Which Sold Today</h4>
 						</div>
 						@if( !$product_sale->isEmpty() )
-							<table class="table">
-								<thead>
-									<tr>
-										<th class="text-center">Top Product</th>
-										<th class="text-center">Quantity</th>
-										<th class="text-center">Sales Money</th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach( $product_sale->take(5) as $product_coll )
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
 										<tr>
-											<td class="text-center">
-												<a href="{{ route( 'admin.products.show', $product_coll->first()->product->id ) }}" class="btn btn-xs btn-warning">
-													{{ $product_coll->first()->product->name }}
-												</a>
-											</td>
-											<td class="text-center"><span class="badge ">{{ $product_coll->sum( 'quantity' ) }}</span></td>
-											<td class="text-center">
-												<span class="badge">
-													{{ number_format( $product_coll->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount ) ; } ), 2 ) }} L.E.
-												</span>
-											</td>
+											<th class="text-center">Top Product</th>
+											<th class="text-center">Quantity</th>
+											<th class="text-center">Sales Money</th>
 										</tr>
-									@endforeach
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										@foreach( $product_sale->take(5) as $product_coll )
+											<tr>
+												<td class="text-center">
+													<a href="{{ route( 'admin.products.show', $product_coll->first()->product->id ) }}" class="btn btn-xs btn-warning">
+														{{ $product_coll->first()->product->name }}
+													</a>
+												</td>
+												<td class="text-center"><span class="badge ">{{ $product_coll->sum( 'quantity' ) }}</span></td>
+												<td class="text-center">
+													<span class="badge">
+														{{ number_format( $product_coll->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount ) ; } ), 2 ) }} L.E.
+													</span>
+												</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
 						@endif
 					</div>
 				</div>
@@ -153,6 +157,7 @@
 							
 							@else
 						</div>
+							<div class="table-responsive">
 								<table class="table">
 									<thead>
 										<tr>
@@ -175,6 +180,7 @@
 										@endforeach
 									</tbody>
 								</table>
+							</div>
 							@endif
 					</div>
 				</div>

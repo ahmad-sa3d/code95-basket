@@ -397,10 +397,12 @@ body[dir="rtl"] .top-bar .top-bar-right {
 .top-bar .dropdown-menu {
   padding: 0;
 }
-.top-bar .dropdown-menu > li > a {
+/*.top-bar .dropdown-menu > li > a {*/
+.top-bar .dropdown-menu li > a {
   padding: 8px;
 }
-.top-bar .dropdown-menu > li > a:hover {
+/*.top-bar .dropdown-menu > li > a:hover {*/
+.top-bar .dropdown-menu li > a:hover {
   background-color: #fafafa;
 }
 .top-bar .notifications {
@@ -428,11 +430,11 @@ body[dir="rtl"] .top-bar .top-bar-right {
 .top-bar .notifications .notification-item .btn-group > a {
   color: #fff;
 }
-.top-bar .notifications .notification-item .btn-group > a:hover {
+.top-bar .notifications .notification-item .btn-group a:hover {
   color: #fff;
   text-decoration: none;
 }
-.top-bar .notifications .btn-group.open .dropdown-toggl-e {
+.top-bar .notifications .btn-group.open .dropdown-toggle {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -485,6 +487,7 @@ body[dir="rtl"] .top-bar .top-bar-right {
 .top-bar .notifications .dropdown-menu .notification-footer a:hover {
   background: none;
   text-decoration: underline;
+  color: #666;
 }
 .top-bar .notifications .dropdown-menu .text {
   font-size: 0.85em;
@@ -500,6 +503,21 @@ body[dir="rtl"] .top-bar .top-bar-right {
 }
 body[dir="rtl"] .top-bar .notifications .inbox .dropdown-menu {
   right: -165px;
+}
+
+.notifications-wraper{
+  max-height: 250px;
+  overflow-y: auto;
+  position: relative;
+}
+.notifications-wraper a{
+  display: block;
+}
+.notifications-wraper li.no-notifications > span{
+  display: block;
+  padding: 5px;
+  text-align: center;
+  font-style: italic;
 }
 /*@media screen and (max-width: 480px) {
   .top-bar .notifications .inbox .dropdown-menu {
@@ -532,11 +550,12 @@ body[dir="rtl"] .top-bar .notifications .general .dropdown-menu {
   min-width: 14px;
 }
 .top-bar .notifications .general .dropdown-menu li a .timestamp {
-  float: right;
+  /*float: right;*/
+  display: block;
 }
-body[dir="rtl"] .top-bar .notifications .general .dropdown-menu li a .timestamp {
+/*body[dir="rtl"] .top-bar .notifications .general .dropdown-menu li a .timestamp {
   float: left;
-}
+}*/
 /*@media screen and (max-width: 480px) {
   .top-bar .notifications .general .dropdown-menu {
     left: -10.5em;

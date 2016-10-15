@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\facades\View;
 use Illuminate\Support\facades\Rediredt;
+use Illuminate\Support\facades\Response;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Sale;
@@ -35,5 +36,15 @@ class DashboardController extends Controller
 		$outofstock_products = $critical_products->diff( $instock_critical_products );
 		
 		return View::make( 'admin.dashboard', compact( 'now', 'sales', 'top_seller_sales', 'product_sale', 'outofstock_products', 'instock_critical_products', 'invoices' ) );
+	}
+
+	public function clearNotifications( Request $request )
+	{
+		if( !$request->ajax() )
+			return abort( 403 );
+
+		$request->user()->unreadNotifications->markAsRead();
+
+		return Response::json( ['status' => 'success'] );
 	}
 }

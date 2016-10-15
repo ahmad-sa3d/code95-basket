@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Event;
 use App\Product;
 use App\Category;
 use App\Order;
@@ -220,6 +223,14 @@ class HomeController extends Controller
                                 $invoice->total += $quantity * $product->price;
                                 $invoice->total_discount += $quantity * $sale->unit_discount;
                                 $invoice->net += $quantity * ( $product->price - $sale->unit_discount );
+
+                                // Send Notification For Critical Products
+                                if( $product->instock_quantity <= Config::get( 'settings.product_critical_limit' ) )
+                                {
+                                    // Notify Admin User
+                                    $admins = \App\User::admin()->get();
+                                    Notification::send( $admins, new \App\Notifications\ProductCriticalLimit( $product ) );
+                                }
                             }
                             else
                                 return Response::json( ['status' => 'error', 'message' => 'Error saving Product Or Sale' ] );
@@ -227,68 +238,20 @@ class HomeController extends Controller
                         }
 
                     } );
-                    // foreach( $order->data as $product_id => $quantity )
-                    // {
-                    //     $product = Product::findOrFail( $product_id );
-                    //     $quantity = ( $quantity > $product->instock_quantity ) ? $product->instock_quantity : $quantity;
-
-                    //     if( $product->instock_quantity > 0 )
-                    //     {
-                    //         // Save sale
-                    //         $sale = new Sale();
-                    //         $sale->user_id = $invoice->user_id;
-                    //         $sale->invoice_id = $invoice->id;
-                    //         $sale->product_id = $product->id;
-                    //         $sale->quantity = $quantity;
-                    //         $sale->unit_price = $product->price;
-                    //         $sale->unit_discount = $product->getDiscountValue();
-                            
-                    //         // Update instock Quantity
-                    //         $product->instock_quantity -= $quantity;
-
-                    //         // Update Invoice
-                    //         if( $sale->save() && $product->save() )
-                    //         {
-                    //             $invoice->total += $quantity * $product->price;
-                    //             $invoice->total_discount += $quantity * $sale->unit_discount;
-                    //             $invoice->net += $quantity * ( $product->price - $sale->unit_discount );
-                    //         }
-                    //         else
-                    //             return Response::json( ['status' => 'error', 'message' => 'Error saving Product Or Sale' ] );
-
-                    //     }
-                        
-                    // }
-                    
-                    // $order->items->each( function( $item ) use( &$invoice ){
-
-                    //     // Make Sales
-                    //     if( $item['quantity'] > 0 )
-                    //     {
-                    //         $sale = new Sale();
-                    //         $sale->user_id = $invoice->user_id;
-                    //         $sale->invoice_id = $invoice->id;
-                    //         $sale->product_id = $item['id'];
-                    //         $sale->quantity = $item['quantity'];
-                    //         $sale->unit_price = $item['unit_price'];
-                    //         $sale->unit_discount = $item['unit_discount'];
-
-                    //         $product = Product::findOrFail( $item['id'] );
-                    //         $product->instock_quantity -= $item['quantity'];
-
-                    //         if( $sale->save() && $product->save() )
-                    //         {
-                    //             $invoice->total += $item['quantity'] * $item['unit_price'];
-                    //             $invoice->total_discount += $item['quantity'] * $item['unit_discount'];
-                    //             $invoice->net += $item['net_price'];
-                    //         }
-                    //     }
-
-                    // } );
 
                     // Save Invoice Again
                     if( $invoice->save() )
+                    {
+                        // \Illuminate\Support\Facades\Mail::to( 'user@test.com' )->queue( new \App\Mail\InvoiceHasMade( $invoice ) );
+                        // Event::fire( new \App\Events\NewInvoiceHasMade( $invoice ) );
+                        // $request->user()->notify( new \App\Notifications\NewInvoiceHasMade( $invoice ) );
+                        if( !isset( $admins ) )
+                            $admins = \App\User::admin()->get();
+
+                        Notification::send( $admins, new \App\Notifications\InvoicePaid( $invoice ) );
+                        // $request->user()->notify( new \App\Notifications\InvoicePaid( $invoice ) );
                         return Response::json( ['status' => 'success', 'invoice_id' => $invoice->id] );
+                    }
                     else
                         return Response::json( ['status' => 'error', 'message' => 'Error Updating Invoice after saving Products and sales.' ] );
                     

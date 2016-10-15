@@ -11,6 +11,12 @@
 |
 */
 
+// Route::get( '/test', function(){
+// 	Redis::set( 'key', 'hi iam value' );
+// 	$val = Redis::get( 'key' );
+// 	return $val;
+// } );
+
 Route::group( [ 'middleware'=>'auth' ], function(){
 
 	Route::get( '/', 'HomeController@index')->name('home');
@@ -24,6 +30,7 @@ Route::group( [ 'middleware'=>'auth' ], function(){
 
 		// Admin Dashboard
 		Route::get( '/', [ 'uses' => 'DashboardController@index' ])->name('dashboard');
+		Route::post( '/clear-notifications', [ 'uses' => 'DashboardController@clearNotifications' ])->name('dashboard.clear-notifications');
 
 		Route::get( '/dashboard', function(){
 			return redirect()->route( 'admin.dashboard' );

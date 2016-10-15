@@ -21,12 +21,12 @@
 							<span class="glyphicon glyphicon-edit"></span>
 						</a>
 
-						<a href="{{ route('admin.categories.show', $category->id) }}" class="no-underline margin-0-5" data-toggle="tooltip" title="Back To user">
-							<span class="fa fa-user"></span>
+						<a href="{{ route('admin.categories.show', $category->id) }}" class="no-underline margin-0-5" data-toggle="tooltip" title="Back To Category">
+							<span class="fa fa-eye"></span>
 						</a>
 
 						<a href="{{ route('admin.categories.index') }}" class="no-underline" data-toggle="tooltip" title="all categories">
-							<span class="fa fa-group"></span>
+							<span class="fa fa-sitemap"></span>
 						</a>
 					</div>
 				</div>
