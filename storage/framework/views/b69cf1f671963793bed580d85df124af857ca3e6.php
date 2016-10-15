@@ -44,6 +44,7 @@
 							</h4>
 						</div>
 						<?php if( $top_seller_sales ): ?>
+<<<<<<< HEAD
 							<div class="table-responsive">
 								<table class="table">
 									<thead>
@@ -73,6 +74,35 @@
 									</tbody>
 								</table>
 							</div>
+=======
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="text-center">Top Seller</th>
+										<th class="text-center"># Sales</th>
+										<th class="text-center">Sales Money</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">
+											<a href="<?php echo e(route( 'admin.users.show', $top_seller_sales->first()->user->id )); ?>" class="btn btn-xs btn-success">
+												<?php echo e($top_seller_sales->first()->user->username); ?>
+
+											</a>
+										</td>
+										<td class="text-center">
+											<span class="badge "><?php echo e($top_seller_sales->count()); ?></span>
+										</td>
+										<td class="text-center">
+											<span class="badge">
+												<?php echo e(number_format( $top_seller_sales->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount); } ), 2 )); ?> L.E.
+											</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+>>>>>>> d0346a1f3922da222230128bd866907cd8a5cef1
 						<?php endif; ?>
 					</div>
 				</div>
@@ -90,6 +120,7 @@
 							</div>
 						</div>
 						<div class="panel-body">
+<<<<<<< HEAD
 							<h4 class=""><span class="valign-middle label label-warning"><?php echo e($product_sale_count); ?></span> Diffrent Products Which Sold Today</h4>
 						</div>
 						<?php if( !$product_sale->isEmpty() ): ?>
@@ -122,6 +153,38 @@
 									</tbody>
 								</table>
 							</div>
+=======
+							<h4 class=""><span class="valign-middle label label-warning"><?php echo e($product_sale_count); ?></span> Diffrent Products Which Sold Tody</h4>
+						</div>
+						<?php if( !$product_sale->isEmpty() ): ?>
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="text-center">Top Product</th>
+										<th class="text-center">Quantity</th>
+										<th class="text-center">Sales Money</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php $__currentLoopData = $product_sale->take(5); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product_coll): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+										<tr>
+											<td class="text-center">
+												<a href="<?php echo e(route( 'admin.products.show', $product_coll->first()->product->id )); ?>" class="btn btn-xs btn-warning">
+													<?php echo e($product_coll->first()->product->name); ?>
+
+												</a>
+											</td>
+											<td class="text-center"><span class="badge "><?php echo e($product_coll->sum( 'quantity' )); ?></span></td>
+											<td class="text-center">
+												<span class="badge">
+													<?php echo e(number_format( $product_coll->sum( function( $sale ){ return $sale->quantity * ( $sale->unit_price - $sale->unit_discount ) ; } ), 2 )); ?> L.E.
+												</span>
+											</td>
+										</tr>
+									<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+								</tbody>
+							</table>
+>>>>>>> d0346a1f3922da222230128bd866907cd8a5cef1
 						<?php endif; ?>
 					</div>
 				</div>
@@ -160,7 +223,10 @@
 							
 							<?php else: ?>
 						</div>
+<<<<<<< HEAD
 							<div class="table-responsive">
+=======
+>>>>>>> d0346a1f3922da222230128bd866907cd8a5cef1
 								<table class="table">
 									<thead>
 										<tr>

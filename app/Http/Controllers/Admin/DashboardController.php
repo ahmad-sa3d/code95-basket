@@ -36,6 +36,7 @@ class DashboardController extends Controller
 		$outofstock_products = $critical_products->diff( $instock_critical_products );
 		
 		return View::make( 'admin.dashboard', compact( 'now', 'sales', 'top_seller_sales', 'product_sale', 'outofstock_products', 'instock_critical_products', 'invoices' ) );
+
 	}
 
 	public function clearNotifications( Request $request )
